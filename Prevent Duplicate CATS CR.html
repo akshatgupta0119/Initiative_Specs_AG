@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Market interactions: interactive prototype</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;font-family:'Inter',sans-serif}
+a{color:#2748B8}a:hover{color:#1B3380}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #2A71BE;outline-offset:2px}
+</style>
+</helmet>
+<div style="display:flex;flex-wrap:wrap;min-height:900px;background:#FFFFFF;font-family:'Inter',sans-serif;font-size:16px;line-height:1.35;color:#262626">
+
+<nav aria-label="Main" style="flex:1 1 240px;box-sizing:border-box;background:#E4E9E1;padding:20px 20px 24px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:6px">
+<div style="font-size:36px;font-weight:400;letter-spacing:-0.5px;color:#262626">kaluza</div>
+<div style="display:flex;align-items:center;gap:6px;color:#B3112D;font-weight:700;font-size:14px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2v2h1v5.2L3.4 17.3C2.7 18.6 3.6 20 5 20h14c1.4 0 2.3-1.4 1.6-2.7L16 9.2V4h1V2H7zm3 2h4v5.8l.2.4L16.5 14h-9l2.3-3.8.2-.4V4z"></path></svg>
+Non Production
+</div>
+</div>
+<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px">
+<li><a href="#" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;color:#262626;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>Account Home</a></li>
+<li><a href="#" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;color:#262626;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20z"></path></svg>Billing<svg style="margin-left:auto" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></a></li>
+<li><a href="#" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;color:#262626;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"></path></svg>Payment and refunds<svg style="margin-left:auto" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></a></li>
+<li><a href="#" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;color:#262626;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"></path></svg>Meter reads<svg style="margin-left:auto" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></a></li>
+<li><a href="#" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;color:#262626;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg>Supply points<svg style="margin-left:auto" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></a></li>
+<li><a href="#" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;color:#262626;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>Customers<svg style="margin-left:auto" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></a></li>
+<li><a href="#" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;color:#262626;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"></path></svg>Collections<svg style="margin-left:auto" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></a></li>
+<li><a href="#" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;color:#262626;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>Exceptions and holds</a></li>
+<li><a href="#" aria-current="page" style="display:flex;align-items:center;gap:12px;min-height:48px;box-sizing:border-box;padding:0 12px;border-radius:6px;background:#5A7152;color:#FFFFFF;font-weight:600;text-decoration:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path></svg>Market interactions</a></li>
+</ul>
+<div style="margin-top:auto;display:flex;align-items:center;gap:12px;padding:0 12px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"></path></svg>
+Account history
+</div>
+</nav>
+
+<div style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column">
+
+<div style="display:flex;align-items:center;gap:24px;padding:14px 32px">
+<div style="flex:1;position:relative">
+<label for="search" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search accounts and supply points</label>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="#5C5C5C" aria-hidden="true" style="position:absolute;left:16px;top:16px"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+<input id="search" type="text" placeholder="Enter account, supply point, name, address..." style="width:100%;height:48px;box-sizing:border-box;border:1px solid #BDBDBD;border-radius:4px;padding:0 16px 0 46px;font-family:'Inter',sans-serif;font-size:16px;color:#262626;background:#FFFFFF">
+</div>
+<svg width="36" height="36" viewBox="0 0 24 24" fill="#262626" role="img" aria-label="Account menu"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78A7.893 7.893 0 0 1 12 20c-1.86 0-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A7.95 7.95 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"></path></svg>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;background:#F9F9F9;border-top:1px solid #E5E5E5;border-bottom:1px solid #E5E5E5;padding:24px 32px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;font-size:32px;font-weight:700;line-height:1.1">
+<span>SHERLENE CADEN</span>
+<span style="border-left:1px solid #D4D4D4;padding-left:20px;font-weight:600">881001944027</span>
+</div>
+<svg width="28" height="28" viewBox="0 0 24 24" fill="#5C5C5C" aria-hidden="true"><path d="M17 7h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.43-.98 2.63-2.31 2.98l1.46 1.46C20.88 15.61 22 13.95 22 12c0-2.76-2.24-5-5-5zm-1 4h-2.19l2 2H16v-2zM2 4.27l3.11 3.11A4.991 4.991 0 0 0 2 12c0 2.76 2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1 0-1.59 1.21-2.9 2.76-3.07L8.73 11H8v2h2.73L13 15.27V17h1.73l4.01 4L20 19.74 3.27 3 2 4.27z"></path></svg>
+</div>
+<div style="display:flex;flex-direction:column;gap:4px">
+<div style="font-weight:700;font-size:18px">Account balance</div>
+<div style="font-weight:700;font-size:24px;color:#4A4A4A">$75.00 in credit</div>
+<div style="display:flex;align-items:center;gap:6px;color:#4A4A4A;font-size:15px">Updated 5 months ago
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#1E5A9C" aria-hidden="true"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg></div>
+</div>
+</div>
+
+<main style="padding:32px 32px 64px;display:flex;flex-direction:column;gap:20px">
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="max-width:780px;box-sizing:border-box;background:#F0FFF6;border:2px solid #03A649;border-radius:4px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="#006B2E" aria-hidden="true" style="flex:none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+<span style="flex:1;color:#262626;font-weight:600">{{ toast }}</span>
+<button type="button" onClick="{{ dismiss }}" style="min-height:44px;padding:0 16px;border:1px solid #262626;border-radius:4px;background:#FFFFFF;color:#262626;font-family:'Inter',sans-serif;font-weight:600;font-size:14px">Dismiss</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:center;gap:16px;font-size:15px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#262626" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+<span>Market interactions</span>
+</div>
+<div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:16px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<h1 style="margin:0;font-size:40px;font-weight:700;line-height:1.1;color:#262626">Market interactions</h1>
+<div style="display:flex;align-items:center;gap:8px;font-size:16px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="#262626" aria-hidden="true"><path d="M7 2v11h3v9l7-12h-4l4-8z"></path></svg>
+SPRN: TESTRH4436 | 5431 TEST STREET TEST CITY SA T87 TST
+</div>
+</div>
+<button type="button" onClick="{{ goCreate }}" style="min-height:48px;padding:0 24px;border:1px solid #262626;border-radius:4px;background:#262626;color:#FFFFFF;font-family:'Inter',sans-serif;font-weight:700;font-size:18px">Create market interaction</button>
+</div>
+
+<h2 style="margin:12px 0 0;font-size:28px;font-weight:700;color:#262626">Transactions</h2>
+<div style="border:1px solid #E0E0E0;border-radius:4px;padding:16px 24px 24px;overflow-x:auto">
+<div role="table" aria-label="Transactions" style="min-width:900px">
+<div role="row" style="display:grid;grid-template-columns:40px minmax(0,1.5fr) minmax(0,2fr) minmax(0,1.4fr) minmax(0,0.9fr) minmax(0,0.9fr) minmax(0,1.1fr);gap:0 8px;align-items:center;padding:16px 0;border-bottom:2px solid #262626;font-weight:700;font-size:17px">
+<div role="columnheader"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Expand</span></div>
+<div role="columnheader">Transaction Type</div>
+<div role="columnheader">Transaction ID</div>
+<div role="columnheader">Transaction Date</div>
+<div role="columnheader">Proposed Date</div>
+<div role="columnheader">Direction</div>
+<div role="columnheader">Status</div>
+</div>
+<sc-for list="{{ rows }}" as="row" hint-placeholder-count="3">
+<div role="rowgroup" style="border-bottom:1px solid #E5E5E5">
+<div role="row" style="display:grid;grid-template-columns:40px minmax(0,1.5fr) minmax(0,2fr) minmax(0,1.4fr) minmax(0,0.9fr) minmax(0,0.9fr) minmax(0,1.1fr);gap:0 8px;align-items:start;padding:14px 0;background:{{ row.bg }}">
+<div role="cell">
+<button type="button" aria-label="{{ row.toggleLabel }}" aria-expanded="{{ row.open }}" onClick="{{ row.toggle }}" style="width:40px;height:40px;border:0;background:transparent;color:#262626;display:flex;align-items:center;justify-content:center;padding:0">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="transform:{{ row.rot }}"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"></path></svg>
+</button>
+</div>
+<div role="cell" style="display:flex;flex-direction:column;gap:2px">
+<span>{{ row.type }}</span>
+<sc-if value="{{ row.hasSub }}" hint-placeholder-val="{{ false }}"><span style="font-size:14px;color:#4A4A4A">{{ row.sub }}</span></sc-if>
+<sc-if value="{{ row.hasHint }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:600;color:#8A5200">{{ row.hint }}</span></sc-if>
+</div>
+<div role="cell" style="font-size:15px;word-break:break-all">{{ row.tid }}</div>
+<div role="cell" style="font-size:15px">{{ row.date }}</div>
+<div role="cell" style="font-size:15px">—</div>
+<div role="cell" style="display:flex;flex-direction:column;gap:2px;font-size:14px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="#262626" role="img" aria-label="{{ row.dirLabel }}"><path d="{{ row.dirPath }}"></path></svg>
+<span>{{ row.party }}</span>
+</div>
+<div role="cell"><span style="{{ row.pillStyle }}">{{ row.status }}</span></div>
+</div>
+<sc-if value="{{ row.open }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 16px 20px 48px;background:#FFFFFF;display:flex;flex-direction:column;gap:12px">
+<dl style="margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 24px;font-size:15px">
+<div><dt style="font-size:13px;color:#4A4A4A">Transaction type</dt><dd style="margin:2px 0 0;font-weight:600">{{ row.type }} {{ row.sub }}</dd></div>
+<div><dt style="font-size:13px;color:#4A4A4A">Status</dt><dd style="margin:2px 0 0;font-weight:600">{{ row.status }}</dd></div>
+<div><dt style="font-size:13px;color:#4A4A4A">Transaction date</dt><dd style="margin:2px 0 0;font-weight:600">{{ row.date }}</dd></div>
+<sc-if value="{{ row.crId }}" hint-placeholder-val="{{ false }}"><div><dt style="font-size:13px;color:#4A4A4A">CATS change request ID</dt><dd style="margin:2px 0 0;font-weight:600">{{ row.crId }}</dd></div></sc-if>
+</dl>
+<sc-if value="{{ row.hasHint }}" hint-placeholder-val="{{ false }}"><p style="margin:0;color:#4A4A4A">Another {{ row.family }} change request can't be raised for this supply point until this one is completed, cancelled or rejected.</p></sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 48px;padding:24px 8px 0">
+<span style="min-width:200px">All results loaded</span>
+<a href="#" style="font-size:20px">To top ▴</a>
+<a href="#" style="font-size:20px">To bottom ▾</a>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isCreate }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:20px">
+
+<sc-if value="{{ showDup }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="max-width:780px;box-sizing:border-box;background:#FCF3F5;border:2px solid #D40C3C;border-radius:4px;padding:16px;display:flex;gap:12px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="#D40C3C" aria-hidden="true" style="flex:none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+<h2 style="margin:0;font-size:18px;font-weight:700">There is a problem</h2>
+<p style="margin:0">Your change request was not submitted. An acquisition CATS change request is already in progress for supply point TESTRH4436, so no new request was created.</p>
+<dl style="margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px">
+<div style="grid-column:1 / -1"><dt style="font-size:13px;color:#4A4A4A">CATS change request ID</dt><dd style="margin:2px 0 0;font-weight:600">1003599127</dd></div>
+<div style="grid-column:1 / -1"><dt style="font-size:13px;color:#4A4A4A">Transaction ID</dt><dd style="margin:2px 0 0;font-weight:600;word-break:break-all">KLZ-91B4D27E5A0C4C38B6F2E8A17D5C0349</dd></div>
+<div><dt style="font-size:13px;color:#4A4A4A">Type</dt><dd style="margin:2px 0 0;font-weight:600">CR1000</dd></div>
+<div><dt style="font-size:13px;color:#4A4A4A">Status</dt><dd style="margin:2px 0 0;font-weight:600">Pending</dd></div>
+<div><dt style="font-size:13px;color:#4A4A4A">Date raised</dt><dd style="margin:2px 0 0;font-weight:600">9 Nov 2026 14:29:41</dd></div>
+</dl>
+<p style="margin:0">You can raise a new acquisition change request once it is completed, cancelled or rejected.</p>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showCheck }}" hint-placeholder-val="{{ false }}">
+<div role="alert" style="max-width:780px;box-sizing:border-box;background:#FCF3F5;border:2px solid #D40C3C;border-radius:4px;padding:16px;display:flex;gap:12px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="#D40C3C" aria-hidden="true" style="flex:none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+<h2 style="margin:0;font-size:18px;font-weight:700">We could not check for existing requests</h2>
+<p style="margin:0">Your change request was not submitted. We could not confirm whether an acquisition change request is already in progress for supply point TESTRH4436, so no new request was created.</p>
+<p style="margin:0">Select Submit request to try again. Your entries have been kept. If this keeps happening, contact [SUPPORT CONTACT TBC].</p>
+</div>
+</div>
+</sc-if>
+
+<div style="display:flex;align-items:center;gap:12px;font-size:15px">
+<button type="button" onClick="{{ goList }}" aria-label="Back to Market interactions" style="width:44px;height:44px;border:0;background:transparent;display:flex;align-items:center;justify-content:center;padding:0;color:#262626">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+</button>
+<span>Market interactions &nbsp;/&nbsp; Create market interaction</span>
+</div>
+
+<h1 style="margin:0;font-size:40px;font-weight:700;line-height:1.1;color:#262626">Create market interaction</h1>
+
+<h2 style="margin:12px 0 0;font-size:28px;font-weight:700;color:#262626">Supply point information</h2>
+<div style="max-width:780px;box-sizing:border-box;border:1px solid #E0E0E0;border-radius:4px;padding:28px 32px;display:flex;gap:16px">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="#262626" aria-hidden="true" style="flex:none"><path d="M7 2v11h3v9l7-12h-4l4-8z"></path></svg>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-size:22px;font-weight:700">TESTRH4436</div>
+<div style="font-size:18px">5431 TEST STREET</div>
+<div style="font-size:18px">TEST CITY SA T87 TST</div>
+</div>
+</div>
+
+<div style="max-width:780px;box-sizing:border-box;border:1px solid #E0E0E0;border-radius:4px;padding:28px 32px;display:flex;flex-direction:column;gap:24px">
+
+<div style="display:flex;flex-direction:column;gap:8px">
+<label for="mitype" style="font-weight:700;font-size:18px">Market interaction type</label>
+<select id="mitype" value="{{ miValue }}" onChange="{{ onMi }}" style="height:48px;box-sizing:border-box;border:1px solid #6B6B6B;border-radius:6px;background:#FFFFFF;color:#262626;font-family:'Inter',sans-serif;font-size:17px;padding:0 12px">
+<option value="">Please select...</option>
+<option value="service">Service order request</option>
+<option value="change">Change request</option>
+<option value="customer">Customer details</option>
+<option value="meter">Meter data request</option>
+<option value="site">Site details</option>
+<option value="oneway">One way notification</option>
+<option value="notified">Notified party request</option>
+</select>
+</div>
+
+<sc-if value="{{ isOther }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0;color:#4A4A4A">The form for this type is outside this prototype. Choose Change request to see the duplicate check.</p>
+</sc-if>
+
+</div>
+<sc-if value="{{ isChange }}" hint-placeholder-val="{{ true }}">
+<h2 style="margin:12px 0 0;font-size:28px;font-weight:700;color:#262626">Create market interaction</h2>
+<div style="max-width:780px;box-sizing:border-box;border:1px solid #E0E0E0;border-radius:4px;padding:28px 32px;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<label for="cat" style="font-weight:700;font-size:18px">Change request type</label>
+<select id="cat" value="{{ catValue }}" onChange="{{ onCat }}" style="height:48px;box-sizing:border-box;border:1px solid #6B6B6B;border-radius:6px;background:#FFFFFF;color:#262626;font-family:'Inter',sans-serif;font-size:17px;padding:0 12px">
+<option value="">Please select...</option>
+<option value="change">Change request</option>
+<option value="error">Error correction</option>
+<option value="reverse">Reverse request</option>
+<option value="nmi">Maintain NMI</option>
+<option value="role">Change role</option>
+<option value="objection">Objection request</option>
+<option value="objwd">Objection withdrawal request</option>
+<option value="withdrawal">Withdrawal request</option>
+</select>
+</div>
+<sc-if value="{{ isOtherCat }}" hint-placeholder-val="{{ false }}">
+<p style="margin:0;color:#4A4A4A">The form for this change request type is outside this prototype. Choose Change request to see the duplicate check.</p>
+</sc-if>
+<sc-if value="{{ isCr }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:24px">
+
+<div style="display:flex;flex-direction:column;gap:8px">
+<label for="crtype" style="font-weight:700;font-size:18px">Reason</label>
+<sc-if value="{{ isChangeCat }}" hint-placeholder-val="{{ true }}">
+<select id="crtype" value="{{ typeValue }}" onChange="{{ onType }}" aria-describedby="crmsg" style="height:48px;box-sizing:border-box;border:{{ typeBorder }};border-radius:6px;background:#FFFFFF;color:#262626;font-family:'Inter',sans-serif;font-size:17px;padding:0 12px">
+<option value="">Please select...</option>
+<option value="CR1000">{{ l1000 }}</option>
+<option value="CR1010">{{ l1010 }}</option>
+<option value="CR1030">{{ l1030 }}</option>
+<option value="CR1040">{{ l1040 }}</option>
+
+</select>
+</sc-if>
+<sc-if value="{{ isErrorCat }}" hint-placeholder-val="{{ false }}">
+<select id="crtype" value="{{ typeValue }}" onChange="{{ onType }}" aria-describedby="crmsg" style="height:48px;box-sizing:border-box;border:{{ typeBorder }};border-radius:6px;background:#FFFFFF;color:#262626;font-family:'Inter',sans-serif;font-size:17px;padding:0 12px">
+<option value="">Please select...</option>
+<option value="CR1025">{{ l1025 }}</option>
+<option value="CR1029">{{ l1029 }}</option>
+</select>
+</sc-if>
+<sc-if value="{{ isReverseCat }}" hint-placeholder-val="{{ false }}">
+<select id="crtype" value="{{ typeValue }}" onChange="{{ onType }}" aria-describedby="crmsg" style="height:48px;box-sizing:border-box;border:{{ typeBorder }};border-radius:6px;background:#FFFFFF;color:#262626;font-family:'Inter',sans-serif;font-size:17px;padding:0 12px">
+<option value="">Please select...</option>
+<option value="CR1060">{{ l1060 }}</option>
+</select>
+</sc-if>
+<sc-if value="{{ showOk }}" hint-placeholder-val="{{ false }}">
+<p id="crmsg" role="status" style="margin:4px 0 0;display:flex;align-items:center;gap:8px;color:#4A4A4A">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#006B2E" aria-hidden="true" style="flex:none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg>
+{{ okText }}
+</p>
+</sc-if>
+<sc-if value="{{ typeInvalid }}" hint-placeholder-val="{{ false }}">
+<p id="crmsg" style="margin:4px 0 0;display:flex;align-items:center;gap:8px;color:#B70932;font-weight:600">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="#B70932" aria-hidden="true" style="flex:none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg>
+An acquisition change request is already in progress.
+</p>
+</sc-if>
+</div>
+
+<sc-if value="{{ showBlocked }}" hint-placeholder-val="{{ false }}">
+<div id="crmsg" role="status" style="box-sizing:border-box;background:#FFFEF5;border:2px solid #D17D00;border-radius:4px;padding:16px;display:flex;gap:12px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="#B06900" aria-hidden="true" style="flex:none"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
+<div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+<h2 style="margin:0;font-size:18px;font-weight:700">{{ blockHeading }}</h2>
+<p style="margin:0">“{{ typeLabel }}” can't be submitted for TESTRH4436 while {{ blockWhile }}. Only one can be active at a time.</p>
+<dl style="margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px">
+<div style="grid-column:1 / -1"><dt style="font-size:13px;color:#4A4A4A">CATS change request ID</dt><dd style="margin:2px 0 0;font-weight:600">{{ blockCrId }}</dd></div>
+<div style="grid-column:1 / -1"><dt style="font-size:13px;color:#4A4A4A">Transaction ID</dt><dd style="margin:2px 0 0;font-weight:600;word-break:break-all">{{ blockTid }}</dd></div>
+<div><dt style="font-size:13px;color:#4A4A4A">Type</dt><dd style="margin:2px 0 0;font-weight:600">{{ blockType }}</dd></div>
+<div><dt style="font-size:13px;color:#4A4A4A">Status</dt><dd style="margin:2px 0 0;font-weight:600">{{ blockStatus }}</dd></div>
+<div><dt style="font-size:13px;color:#4A4A4A">Date raised</dt><dd style="margin:2px 0 0;font-weight:600">{{ blockDate }}</dd></div>
+</dl>
+<p style="margin:0">You can't submit this request. The block lifts once that request is no longer Pending, Requested or Objected.</p>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasType }}" hint-placeholder-val="{{ true }}">
+<fieldset disabled="{{ fieldsDisabled }}" style="border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:20px;opacity:{{ fieldOpacity }}">
+<legend style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Change request details</legend>
+<sc-if value="{{ isReverseCat }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<label for="crid" style="font-weight:700;font-size:18px">Change request ID</label>
+<span style="font-size:15px;color:#4A4A4A">Created on CATS Change Request response.</span>
+<input id="crid" type="text" style="width:100%;height:48px;box-sizing:border-box;border:1px solid #6B6B6B;border-radius:6px;background:#FFFFFF;padding:0 12px;font-family:'Inter',sans-serif;font-size:17px;color:#262626">
+</div>
+</sc-if>
+<div style="display:flex;flex-direction:column;gap:8px">
+<label for="eff" style="font-weight:700;font-size:18px">Proposed start date</label>
+<span style="font-size:15px;color:#4A4A4A">Enter the proposed start date.</span>
+<div style="position:relative"><input id="eff" type="text" placeholder="dd/mm/yyyy" style="width:100%;height:48px;box-sizing:border-box;border:1px solid #6B6B6B;border-radius:6px;background:#FFFFFF;padding:0 48px 0 12px;font-family:'Inter',sans-serif;font-size:17px;color:#262626"><svg width="24" height="24" viewBox="0 0 24 24" fill="#262626" aria-hidden="true" style="position:absolute;right:12px;top:12px"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path></svg></div>
+</div>
+<sc-if value="{{ notReverse }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<label for="endd" style="font-weight:700;font-size:18px">Actual end date (optional)</label>
+<span style="font-size:15px;color:#4A4A4A">Enter the actual end date.</span>
+<div style="position:relative"><input id="endd" type="text" placeholder="dd/mm/yyyy" style="width:100%;height:48px;box-sizing:border-box;border:1px solid #6B6B6B;border-radius:6px;background:#FFFFFF;padding:0 48px 0 12px;font-family:'Inter',sans-serif;font-size:17px;color:#262626"><svg width="24" height="24" viewBox="0 0 24 24" fill="#262626" aria-hidden="true" style="position:absolute;right:12px;top:12px"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"></path></svg></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<label for="mrt" style="font-weight:700;font-size:18px">Meter read type code</label>
+<span style="font-size:15px;color:#4A4A4A">Select the meter read type code.</span>
+<select id="mrt" style="height:48px;box-sizing:border-box;border:1px solid #6B6B6B;border-radius:6px;background:#FFFFFF;color:#262626;font-family:'Inter',sans-serif;font-size:17px;padding:0 12px"><option selected="">Read required (RR)</option></select>
+</div>
+</sc-if>
+</fieldset>
+</sc-if>
+
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<sc-if value="{{ showSubmit }}" hint-placeholder-val="{{ true }}"><button type="button" disabled="{{ submitDisabled }}" onClick="{{ submit }}" aria-describedby="crmsg" style="{{ submitStyle }}">Submit request</button></sc-if>
+<button type="button" onClick="{{ goList }}" style="min-height:48px;padding:0 24px;border:1px solid #262626;border-radius:4px;background:#FFFFFF;color:#262626;font-family:'Inter',sans-serif;font-weight:700;font-size:17px">Cancel</button>
+</div>
+
+</div>
+</sc-if>
+
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"scenario":{"editor":"enum","default":"blocked","options":["blocked","requested","objected","finished","race","check"],"section":"Prototype scenario"},"$preview":{"width":1280,"height":900}}'>
+class Component extends DCLogic {
+state = { screen: 'list', mi: '', cat: '', type: '', err: '', refreshed: false, checkTried: false, added: [], expanded: '', toast: '' };
+
+rowsFor(sc) {
+const st = this.state;
+const base = [
+{ id: 'r1', type: 'SiteAccessNotification', sub: '', crType: '', tid: 'KLZ-6CE955D8B85C73365653839754ACBDAC', date: '29 Jun 2026 15:18:20', dir: 'out', party: 'LNSP', status: 'Interface Error' },
+{ id: 'r2', type: 'CustomerDetailsNotification', sub: 'Update', crType: '', tid: 'KLZ-D8C9FB2818A34DDE927735868E0E6E43', date: '23 Jun 2026 15:57:38', dir: 'in', party: 'TCAMP', status: 'Processing' },
+{ id: 'r3', type: 'CustomerDetailsNotification', sub: 'Update', crType: '', tid: 'KLZ-215A646466AC4A89A2DCD2D8FF6F481B', date: '22 Jun 2026 13:04:04', dir: 'in', party: 'TCAMP', status: 'Processing' }
+];
+const cr = [];
+if (sc === 'blocked' || sc === 'finished' || sc === 'requested' || sc === 'objected') {
+cr.push({ id: 'cr1', type: 'CATSChangeRequest', sub: 'CR1000', crType: 'CR1000', tid: 'KLZ-3E8A0C51D7B24F96A1C5E70B92D4F683', crId: '1003587402', date: '6 Nov 2026 10:42:15', dir: 'out', party: 'MSATS', status: sc === 'finished' ? 'Completed' : (sc === 'requested' ? 'Requested' : (sc === 'objected' ? 'Objected' : 'Pending')) });
+}
+if (sc === 'race' && st.refreshed) {
+cr.push({ id: 'cr2', type: 'CATSChangeRequest', sub: 'CR1000', crType: 'CR1000', tid: 'KLZ-91B4D27E5A0C4C38B6F2E8A17D5C0349', crId: '1003599127', date: '9 Nov 2026 14:29:41', dir: 'out', party: 'MSATS', status: 'Pending' });
+}
+return [].concat(st.added, cr, base);
+}
+
+renderVals() {
+const sc = this.props.scenario ?? 'blocked';
+const st = this.state;
+const inProg = (r) => ['Pending', 'Requested', 'Objected', 'Processing'].includes(r.status);
+const rows = this.rowsFor(sc);
+const isChange = st.mi === 'change';
+const isCr = isChange && (st.cat === 'change' || st.cat === 'error' || st.cat === 'reverse');
+const fam = (t) => ['CR1000', 'CR1010', 'CR1025', 'CR1029', 'CR1030', 'CR1040', 'CR1060'].includes(t) ? 'acquisition' : t;
+const block = (isCr && st.type) ? rows.find((r) => r.crType && fam(r.crType) === fam(st.type) && inProg(r)) : null;
+const colors = {
+'Interface Error': ['#D40C3C', '#B70932'],
+'Processing': ['#1E88E5', '#0B5C8A'],
+'Pending': ['#D17D00', '#8A5200'],
+'Completed': ['#03A649', '#006B2E'],
+'Requested': ['#1E88E5', '#0B5C8A'],
+'Objected': ['#C2410C', '#9A3412']
+};
+const items = rows.map((r, i) => {
+const open = st.expanded === r.id;
+const c = colors[r.status] || ['#6B6B6B', '#4A4A4A'];
+const hint = (r.crType && inProg(r)) ? 'Blocks a new ' + fam(r.crType) + ' change request' : '';
+return Object.assign({}, r, {
+open: open,
+hasSub: !!r.sub,
+hint: hint,
+hasHint: !!hint,
+family: fam(r.crType || ''),
+bg: i % 2 === 0 ? '#F9F9F9' : '#FFFFFF',
+rot: open ? 'rotate(90deg)' : 'none',
+toggleLabel: (open ? 'Collapse ' : 'Expand ') + r.type + ' ' + r.sub,
+toggle: () => this.setState({ expanded: open ? '' : r.id }),
+dirPath: r.dir === 'out' ? 'M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z' : 'M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z',
+dirLabel: r.dir === 'out' ? 'Outbound to ' + r.party : 'Inbound from ' + r.party,
+pillStyle: 'display:inline-flex;align-items:center;border-radius:16px;font-weight:600;font-size:13px;padding:2px 12px;background:#FFFFFF;border:1px solid ' + c[0] + ';color:' + c[1]
+});
+});
+const frontKnown = (t) => rows.some((r) => r.crType && fam(r.crType) === fam(t) && inProg(r));
+const names = { CR1000: 'Prospective transfer, in situ (1000)', CR1010: 'Retrospective transfer, in situ (1010)', CR1030: 'Prospective transfer, move-in (1030)', CR1040: 'Retrospective transfer, move-in (1040)', CR1025: 'Transferred in error (1025)', CR1029: 'Other error corrections (1029)', CR1060: 'Reverse retailer - cooling off (1060)' };
+const lbl = (c) => names[c];
+const submitDisabled = !st.type || !!block;
+const submit = () => {
+if (!st.type) return;
+if (sc === 'check' && !st.checkTried) { this.setState({ err: 'check', checkTried: true }); return; }
+if (sc === 'race' && fam(st.type) === 'acquisition' && !st.refreshed) { this.setState({ err: 'dup', refreshed: true }); return; }
+const n = st.added.length + 1;
+const row = { id: 'new' + n, type: 'CATSChangeRequest', sub: st.type, crType: st.type, tid: 'KLZ-7D41B3E0C6A94F28B51E0D93A7C2F' + (100 + n), crId: String(1003600000 + n), date: '9 Nov 2026 14:32:10', dir: 'out', party: 'MSATS', status: 'Pending' };
+this.setState({ screen: 'list', added: [row].concat(st.added), toast: st.type + ' change request submitted.', mi: '', type: '', err: '' });
+};
+return {
+isList: st.screen === 'list',
+isCreate: st.screen === 'create',
+hasToast: !!st.toast && st.screen === 'list',
+toast: st.toast,
+rows: items,
+goCreate: () => this.setState({ screen: 'create', mi: '', cat: '', type: '', err: '', toast: '' }),
+goList: () => this.setState({ screen: 'list', mi: '', type: '', err: '' }),
+dismiss: () => this.setState({ toast: '' }),
+miValue: st.mi,
+onMi: (e) => this.setState({ mi: e.target.value, cat: '', type: '', err: '' }),
+isChange: isChange,
+isCr: isCr,
+catValue: st.cat,
+onCat: (e) => this.setState({ cat: e.target.value, type: '', err: '' }),
+isOtherCat: !!st.cat && !isCr,
+isChangeCat: st.cat === 'change',
+isErrorCat: st.cat === 'error',
+isReverseCat: st.cat === 'reverse',
+notReverse: st.cat !== 'reverse',
+isOther: !!st.mi && !isChange,
+typeValue: st.type,
+typeLabel: names[st.type] || '',
+hasType: !!st.type,
+okText: fam(st.type) === 'acquisition' ? 'No acquisition change request is in progress for this supply point.' : 'No ' + st.type + ' change request is in progress for this supply point.',
+onType: (e) => this.setState({ type: e.target.value, err: '' }),
+l1000: lbl('CR1000'), l1010: lbl('CR1010'), l1030: lbl('CR1030'), l1040: lbl('CR1040'), l1025: lbl('CR1025'), l1029: lbl('CR1029'), l1060: lbl('CR1060'),
+
+typeBorder: st.err === 'dup' ? '2px solid #D40C3C' : (block ? '2px solid #D17D00' : '1px solid #6B6B6B'),
+typeInvalid: st.err === 'dup',
+showBlocked: !!block && st.err !== 'dup',
+showOk: !!st.type && !block && !st.err,
+showDup: st.err === 'dup',
+showCheck: st.err === 'check',
+blockType: block ? block.crType : '',
+blockHeading: block ? (fam(block.crType) === 'acquisition' ? 'An acquisition CATS change request is already in progress' : 'A ' + block.crType + ' change request is already in progress') : '',
+blockWhile: block ? (fam(block.crType) === 'acquisition' ? 'another acquisition change request is in progress' : 'another ' + block.crType + ' change request is in progress') : '',
+blockTid: block ? block.tid : '',
+blockCrId: block ? block.crId : '',
+blockStatus: block ? block.status : '',
+blockDate: block ? block.date : '',
+fieldsDisabled: !!block,
+fieldOpacity: block ? '0.55' : '1',
+submitDisabled: submitDisabled,
+showSubmit: !block,
+submitStyle: submitDisabled
+? 'min-height:48px;padding:0 24px;border:1px solid #D4D4D4;border-radius:4px;background:#E5E5E5;color:#4A4A4A;font-family:Inter,sans-serif;font-weight:700;font-size:17px'
+: 'min-height:48px;padding:0 24px;border:1px solid #262626;border-radius:4px;background:#262626;color:#FFFFFF;font-family:Inter,sans-serif;font-weight:700;font-size:17px',
+submit: submit,
+viewBlock: () => this.setState({ screen: 'list', expanded: block ? block.id : '', mi: '', type: '', err: '' }),
+viewDup: () => this.setState({ screen: 'list', expanded: 'cr2', mi: '', type: '', err: '' })
+};
+}
+}
+</script>
+</body>
+</html>
